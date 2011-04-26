@@ -1,0 +1,67 @@
+#!/bin/bash
+
+#Setting variables
+targetdir=$1
+targetext=$2
+fromenc=$3
+toenc=$4
+
+#Help()
+function show_help() {
+	echo "Usage: diconv directory extension from_encoding to_encoding"
+	return 0
+}
+#Change encoding
+function do_iconv {
+	echo $targetdir
+	for file in $(ls $targetdir*.$targetext); do
+		echo $file
+		iconv -f $fromenc -t $toenc $file > diconv_tmp
+		rm -rf $file
+		mv diconv_tmp $file
+	done
+	return 0
+}
+
+echo "Directory iconv v0.2"
+
+#Check argument 
+if test $# -eq 4
+then
+	if [ -d $targetdir ]
+	then
+		if  [-d $targetext ]
+		then
+			do_iconv
+			exit $?
+		else
+			echo "extension error"
+			exit 1
+		fi
+	else
+		echo "directory error"
+		exit 1
+	fi
+elif test $# -gt 4
+then
+	echo "argumenets too many"
+	exit 1
+elif test $# -eq 1
+then
+	if test $1 == 'help'
+	then
+		show_help
+		exit 0
+	fi
+elif test $# -lt 1
+then
+	show_help
+	exit 0
+elif test $# -lt 4
+then
+	echo "need more arguments"
+	exit 1
+else
+	show_help
+	exit 0
+fi

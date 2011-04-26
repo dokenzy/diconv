@@ -3,8 +3,8 @@ Diretory iconv is using iconv utility.
 You can change encoding of all files in a directory using iconv.
 
 Usage:
-$diconv 1 2 3 4
-1: directory name
-2: file extension
-3: from encoding
-4: to encoding
+$diconv arg1 arg2 arg3 arg4
+arg1: directory name
+arg2: file extension
+arg3: from encoding
+arg4: to encoding
